@@ -3,72 +3,189 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>个人网站 - Cayman主题</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Serein的个人博客</title>
+    <style>
+        /* 基础样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #24292e;
+            background-color: #fff;
+        }
+        
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        .container {
+            max-width: 1012px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+        
+        /* 头部样式 */
+        header {
+            background-color: #fafbfc;
+            border-bottom: 1px solid #e1e4e8;
+            padding: 16px 0;
+        }
+        
+        .site-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #24292e;
+        }
+        
+        .site-description {
+            font-size: 16px;
+            color: #586069;
+            margin-top: 4px;
+        }
+        
+        /* 导航样式 */
+        nav {
+            margin-top: 16px;
+        }
+        
+        nav a {
+            margin-right: 16px;
+            font-size: 14px;
+            color: #0366d6;
+        }
+        
+        /* 主要内容区域 */
+        main {
+            padding: 32px 0;
+        }
+        
+        .page-header {
+            margin-bottom: 32px;
+        }
+        
+        .page-title {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .page-description {
+            font-size: 18px;
+            color: #586069;
+        }
+        
+        /* 博客文章列表 */
+        .post-list {
+            list-style: none;
+        }
+        
+        .post-item {
+            padding: 24px 0;
+            border-bottom: 1px solid #eaecef;
+        }
+        
+        .post-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .post-meta {
+            font-size: 14px;
+            color: #586069;
+            margin-bottom: 8px;
+        }
+        
+        .post-excerpt {
+            color: #586069;
+        }
+        
+        /* 页脚样式 */
+        footer {
+            border-top: 1px solid #eaecef;
+            padding: 24px 0;
+            margin-top: 32px;
+            text-align: center;
+            color: #586069;
+            font-size: 14px;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 12px;
+            }
+            
+            .page-title {
+                font-size: 24px;
+            }
+            
+            .post-title {
+                font-size: 18px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- 主题选择导航栏 -->
-    <nav class="theme-nav">
-        <button class="hide-thumbnails">Hide thumbnails</button>
-        <div class="theme-tabs">
-            <!-- 主题选项卡 -->
-            <div class="tab-item active" data-theme="cayman">
-                <div class="tab-thumbnail" style="background: #2e8c70;">
-                    <p>Cayman</p>
-                </div>
-            </div>
-            <div class="tab-item" data-theme="slate">
-                <div class="tab-thumbnail" style="background: #31363b;">
-                    <p>Slate</p>
-                </div>
-            </div>
-            <div class="tab-item" data-theme="merlot">
-                <div class="tab-thumbnail" style="background: #60223b;">
-                    <p>MERLOT</p>
-                </div>
-            </div>
-            <div class="tab-item" data-theme="time-machine">
-                <div class="tab-thumbnail" style="background: #e3e8e8;">
-                    <p>Time Machine</p>
-                    <button class="demo-btn">Demo</button>
-                </div>
-            </div>
-            <div class="tab-item" data-theme="minimal">
-                <div class="tab-thumbnail" style="background: #f0f0f0;">
-                    <div class="minimal-icon"></div>
-                    <p>MINIMAL</p>
-                </div>
-            </div>
-            <div class="tab-item" data-theme="leap-day">
-                <div class="tab-thumbnail" style="background: linear-gradient(#fdd835, #ffeb3b);">
-                    <p>Leap Day</p>
-                </div>
-            </div>
-            <button class="select-theme">Select theme</button>
+    <header>
+        <div class="container">
+            <h1 class="site-title">Serein</h1>
+            <p class="site-description">个人博客 & 技术分享</p>
+            <nav>
+                <a href="#">首页</a>
+                <a href="#">文章</a>
+                <a href="#">项目</a>
+                <a href="#">关于</a>
+            </nav>
         </div>
-    </nav>
-
-    <!-- 主体内容区域 -->
-    <main>
-        <!-- 英雄封面区域 -->
-        <section class="hero" data-theme="cayman">
-            <div class="hero-content">
-                <h1>Cayman主题</h1>
-                <p>Cayman是一个简洁、响应式的GitHub Pages主题，专为技术博客和个人作品集设计</p>
-                <div class="actions">
-                    <a href="#" class="btn primary">View on GitHub</a>
-                    <a href="#" class="btn secondary">Download .zip</a>
-                    <a href="#" class="btn secondary">Download .tar.gz</a>
-                </div>
-            </div>
-        </section>
+    </header>
+    
+    <main class="container">
+        <div class="page-header">
+            <h1 class="page-title">最新文章</h1>
+            <p class="page-description">分享技术见解与生活感悟</p>
+        </div>
         
-        <!-- 文本样式展示 -->
-        <section class="text-styles">
-            <p>文本支持多种样式：<strong>粗体</strong>、<em>斜体</em>、<s>删除线</s>、<code>&lt;code&gt;代码块&lt;/code&gt;</code></p>
-        </section>
+        <ul class="post-list">
+            <li class="post-item">
+                <h2 class="post-title"><a href="#">深入理解JavaScript闭包</a></h2>
+                <div class="post-meta">发布于 2023年10月15日 · 5分钟阅读</div>
+                <p class="post-excerpt">闭包是JavaScript中一个强大且重要的概念。本文将深入探讨闭包的工作原理、使用场景以及常见误区...</p>
+            </li>
+            
+            <li class="post-item">
+                <h2 class="post-title"><a href="#">CSS Grid布局完全指南</a></h2>
+                <div class="post-meta">发布于 2023年10月8日 · 8分钟阅读</div>
+                <p class="post-excerpt">CSS Grid布局是创建复杂网页布局的强大工具。本指南将带你从基础概念到高级技巧，掌握这一现代CSS布局方法...</p>
+            </li>
+            
+            <li class="post-item">
+                <h2 class="post-title"><a href="#">响应式设计的最佳实践</a></h2>
+                <div class="post-meta">发布于 2023年10月1日 · 6分钟阅读</div>
+                <p class="post-excerpt">在移动设备普及的今天，响应式设计已成为网站开发的标准。本文分享一些响应式设计的最佳实践和常见陷阱...</p>
+            </li>
+        </ul>
     </main>
-
-    <script src="script.js"></script>
+    
+    <footer>
+        <div class="container">
+            <p>© 2023 Serein. 保留所有权利.</p>
+            <p>
+                <a href="#">GitHub</a> · 
+                <a href="#">Twitter</a> · 
+                <a href="#">联系我</a>
+            </p>
+        </div>
+    </footer>
 </body>
 </html>
