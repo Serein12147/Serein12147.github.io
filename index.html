@@ -1,2 +1,74 @@
-<DOCTYPE HTML>
-  <p>Hello world</p>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人网站 - Cayman主题</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 主题选择导航栏 -->
+    <nav class="theme-nav">
+        <button class="hide-thumbnails">Hide thumbnails</button>
+        <div class="theme-tabs">
+            <!-- 主题选项卡 -->
+            <div class="tab-item active" data-theme="cayman">
+                <div class="tab-thumbnail" style="background: #2e8c70;">
+                    <p>Cayman</p>
+                </div>
+            </div>
+            <div class="tab-item" data-theme="slate">
+                <div class="tab-thumbnail" style="background: #31363b;">
+                    <p>Slate</p>
+                </div>
+            </div>
+            <div class="tab-item" data-theme="merlot">
+                <div class="tab-thumbnail" style="background: #60223b;">
+                    <p>MERLOT</p>
+                </div>
+            </div>
+            <div class="tab-item" data-theme="time-machine">
+                <div class="tab-thumbnail" style="background: #e3e8e8;">
+                    <p>Time Machine</p>
+                    <button class="demo-btn">Demo</button>
+                </div>
+            </div>
+            <div class="tab-item" data-theme="minimal">
+                <div class="tab-thumbnail" style="background: #f0f0f0;">
+                    <div class="minimal-icon"></div>
+                    <p>MINIMAL</p>
+                </div>
+            </div>
+            <div class="tab-item" data-theme="leap-day">
+                <div class="tab-thumbnail" style="background: linear-gradient(#fdd835, #ffeb3b);">
+                    <p>Leap Day</p>
+                </div>
+            </div>
+            <button class="select-theme">Select theme</button>
+        </div>
+    </nav>
+
+    <!-- 主体内容区域 -->
+    <main>
+        <!-- 英雄封面区域 -->
+        <section class="hero" data-theme="cayman">
+            <div class="hero-content">
+                <h1>Cayman主题</h1>
+                <p>Cayman是一个简洁、响应式的GitHub Pages主题，专为技术博客和个人作品集设计</p>
+                <div class="actions">
+                    <a href="#" class="btn primary">View on GitHub</a>
+                    <a href="#" class="btn secondary">Download .zip</a>
+                    <a href="#" class="btn secondary">Download .tar.gz</a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 文本样式展示 -->
+        <section class="text-styles">
+            <p>文本支持多种样式：<strong>粗体</strong>、<em>斜体</em>、<s>删除线</s>、<code>&lt;code&gt;代码块&lt;/code&gt;</code></p>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
