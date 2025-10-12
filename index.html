@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Serein的个人博客</title>
+    <title>Serein's Blog</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Gitalk CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css">
     <style>
         * {
             margin: 0;
@@ -264,98 +266,8 @@
             padding-left: 1rem;
         }
 
-        .comment-form {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .form-group {
-            margin-bottom: 1rem;
-        }
-
-        .form-group.full-width {
-            grid-column: 1 / -1;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: #555;
-        }
-
-        .form-group input, .form-group textarea {
-            width: 100%;
-            padding: 0.8rem;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: border-color 0.3s, box-shadow 0.3s;
-        }
-
-        .form-group input:focus, .form-group textarea:focus {
-            outline: none;
-            border-color: var(--primary-blue);
-            box-shadow: 0 0 0 3px rgba(106, 158, 255, 0.2);
-        }
-
-        .submit-btn {
-            background: linear-gradient(to right, var(--primary-green), var(--secondary-green));
-            color: white;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 30px;
-            font-size: 1rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-            grid-column: 1 / -1;
-            justify-self: start;
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(76, 217, 123, 0.4);
-        }
-
-        .comments-list {
+        .gitalk-container {
             margin-top: 2rem;
-        }
-
-        .comment-item {
-            padding: 1.5rem;
-            border-bottom: 1px solid #eee;
-            background: rgba(248, 249, 250, 0.7);
-            border-radius: 8px;
-            margin-bottom: 1rem;
-        }
-
-        .comment-item:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-        }
-
-        .comment-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.8rem;
-        }
-
-        .comment-author {
-            font-weight: bold;
-            color: var(--primary-purple);
-        }
-
-        .comment-date {
-            color: #777;
-            font-size: 0.9rem;
-        }
-
-        .comment-content {
-            color: #555;
-            line-height: 1.6;
         }
 
         footer {
@@ -401,10 +313,37 @@
             .nav-links li {
                 margin: 0 0.8rem;
             }
-            
-            .comment-form {
-                grid-template-columns: 1fr;
-            }
+        }
+
+        /* Gitalk 样式调整 */
+        .gt-container .gt-header-textarea {
+            background: rgba(248, 249, 250, 0.7);
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .gt-container .gt-btn {
+            background: linear-gradient(to right, var(--primary-green), var(--secondary-green));
+            border: none;
+            border-radius: 30px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .gt-container .gt-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(76, 217, 123, 0.4);
+        }
+
+        .gt-container .gt-btn-preview {
+            background: linear-gradient(to right, var(--primary-blue), var(--secondary-blue));
+        }
+
+        .gt-container .gt-user .gt-ico {
+            background: linear-gradient(45deg, var(--primary-purple), var(--secondary-purple));
+        }
+
+        .gt-container a {
+            color: var(--primary-blue);
         }
     </style>
 </head>
@@ -414,13 +353,13 @@
             <div class="header-content">
                 <div class="logo">
                     <h1>Serein</h1>
-                    <p>宁静致远</p>
+                    <p>        </p>
                 </div>
                 <ul class="nav-links">
-                    <li><a href="#">首页</a></li>
-                    <li><a href="#">文章</a></li>
-                    <li><a href="#">关于</a></li>
-                    <li><a href="#">联系</a></li>
+                    <li><a href="#home">首页</a></li>
+                    <li><a href="#articles">文章</a></li>
+                    <li><a href="#about">关于</a></li>
+                    <li><a href="#contact">联系</a></li>
                 </ul>
             </div>
         </div>
@@ -430,23 +369,23 @@
         <main>
             <div class="blog-posts">
                 <article class="post">
-                    <h2>标题</h2>
-                    <p>内容... 这里将展示您的博客文章内容。您可以在这里分享您的想法、经验和知识。内容区域支持富文本格式，可以插入图片、代码块和其他媒体内容。</p>
+                    <h2>尼采名句</h2>
+                    <p>Wenn du lange in einen Abgrund blickst,blickt der Abgrund auch dich hinein.</p>
                     <div class="post-meta">
-                        <span><i class="far fa-calendar"></i> 2023年10月15日</span>
-                        <span><i class="far fa-comment"></i> 5 条评论</span>
+                        <span><i class="far fa-calendar"></i> 2025年10月12日</span>
+                        <span><i class="far fa-comment"></i> 0 条评论</span>
                     </div>
-                    <a href="#" class="read-more">阅读更多</a>
+                    <a href="#post1" class="read-more">阅读更多</a>
                 </article>
 
                 <article class="post">
-                    <h2>另一个标题</h2>
-                    <p>另一个内容... 这是另一篇博客文章的预览。您可以在管理后台轻松添加、编辑和删除文章。所有更改都会实时保存，确保您的内容始终是最新的。</p>
+                    <h2>标题</h2>
+                    <p>内容... 这是另一篇博客文章的预览。您可以在管理后台轻松添加、编辑和删除文章。所有更改都会实时保存，确保您的内容始终是最新的。</p>
                     <div class="post-meta">
-                        <span><i class="far fa-calendar"></i> 2023年10月10日</span>
-                        <span><i class="far fa-comment"></i> 3 条评论</span>
+                        <span><i class="far fa-calendar"></i> 2025年10月12日</span>
+                        <span><i class="far fa-comment"></i> 0 条评论</span>
                     </div>
-                    <a href="#" class="read-more">阅读更多</a>
+                    <a href="#post2" class="read-more">阅读更多</a>
                 </article>
             </div>
 
@@ -455,146 +394,114 @@
                     <h3>关于我</h3>
                     <div class="about-content">
                         <div class="avatar">S</div>
-                        <p>你好，我是Serein，一名热爱技术与创作的博主。在这里分享我的思考和发现。</p>
+                        <p>Hi,I'm Serein.A teenager who is still constantly learning.</p>
                     </div>
                 </div>
 
                 <div class="categories">
                     <h3>文章分类</h3>
                     <ul>
-                        <li><a href="#">技术笔记 <span>(12)</span></a></li>
-                        <li><a href="#">生活随笔 <span>(8)</span></a></li>
-                        <li><a href="#">读书心得 <span>(5)</span></a></li>
-                        <li><a href="#">旅行见闻 <span>(3)</span></a></li>
+                        <li><a href="#tech">技术笔记 <span>(12)</span></a></li>
+                        <li><a href="#life">生活随笔 <span>(8)</span></a></li>
+                        <li><a href="#reading">读书心得 <span>(5)</span></a></li>
+                        <li><a href="#travel">旅行见闻 <span>(3)</span></a></li>
                     </ul>
                 </div>
 
                 <div class="recent-comments">
                     <h3>最新评论</h3>
                     <div class="comment">
-                        <div class="comment-author">访客123</div>
-                        <p>这篇文章很有启发，谢谢分享！</p>
+                        <div class="comment-author">TEST</div>
+                        <p>TEST TEXT</p>
                     </div>
                     <div class="comment">
-                        <div class="comment-author">学习者</div>
-                        <p>期待更多关于这个主题的内容。</p>
+                        <div class="comment-author">TEST</div>
+                        <p>TEST TEXT</p>
                     </div>
                 </div>
             </div>
 
             <section class="comments-section">
                 <h2>留言区</h2>
-                <form id="commentForm" class="comment-form">
-                    <div class="form-group">
-                        <label for="name">姓名</label>
-                        <input type="text" id="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">邮箱</label>
-                        <input type="email" id="email" required>
-                    </div>
-                    <div class="form-group full-width">
-                        <label for="comment">留言内容</label>
-                        <textarea id="comment" rows="5" required></textarea>
-                    </div>
-                    <button type="submit" class="submit-btn">提交留言</button>
-                </form>
-
-                <div class="comments-list" id="commentsList">
-                    <!-- 留言将动态添加到这里 -->
-                </div>
+                <p>基于 GitHub Issues 的评论系统，您需要登录 GitHub 账号才能留言。</p>
+                <div id="gitalk-container" class="gitalk-container"></div>
             </section>
         </main>
     </div>
 
     <footer>
         <div class="container">
-            <p>&copy; 2025 Serein的个人博客. 保留所有权利.</p>
+            <p>&copy; 2025 Serein︱保留所有权利.</p>
             <div class="social-links">
-                <a href="#"><i class="fab fa-github"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-weibo"></i></a>
-                <a href="#"><i class="fab fa-zhihu"></i></a>
+                <a href="https://github.com/Serein12147" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://weibo.com" target="_blank"><i class="fab fa-weibo"></i></a>
+                <a href="https://space.bilibili.com/3493271475062788" target="_blank"><i class="fab fa-bilibili"></i></a>
             </div>
         </div>
     </footer>
 
+    <!-- Gitalk JS -->
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js"></script>
+    <!-- MD5 for Gitalk -->
+    <script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.19.0/js/md5.min.js"></script>
     <script>
+        // 配置Gitalk
+        const gitalk = new Gitalk({
+            // 需要从GitHub申请
+            clientID: 'Ov23liATxsNzKMtdYVbg',
+            clientSecret: '1f04e1270bedf2cb6e127448ce87a25105eebf74',
+            repo: 'YOUR_REPO_NAME', // 用于存储评论的 GitHub 仓库
+            owner: 'Serein12147', // GitHub 用户名
+            admin:['Serein12147'], // 仓库管理员，可以初始化评论
+            id: md5(location.pathname), // 确保每个页面的id唯一
+            distractionFreeMode: false, // 专注模式
+            language: 'zh-CN', // 语言设置
+        });
+
+        // 渲染Gitalk评论框
+        gitalk.render('gitalk-container');
+
+        // 按钮跳转功能
         document.addEventListener('DOMContentLoaded', function() {
-            const commentForm = document.getElementById('commentForm');
-            const commentsList = document.getElementById('commentsList');
-            
-            // 从localStorage加载留言
-            loadComments();
-            
-            // 提交留言表单
-            commentForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const name = document.getElementById('name').value;
-                const email = document.getElementById('email').value;
-                const comment = document.getElementById('comment').value;
-                
-                if (name && email && comment) {
-                    addComment(name, email, comment);
-                    commentForm.reset();
-                } else {
-                    alert('请填写所有字段');
-                }
-            });
-            
-            // 添加留言到页面和localStorage
-            function addComment(name, email, content) {
-                const comment = {
-                    id: Date.now(),
-                    name: name,
-                    email: email,
-                    content: content,
-                    date: new Date().toLocaleString()
-                };
-                
-                // 获取现有留言
-                let comments = JSON.parse(localStorage.getItem('blogComments')) || [];
-                
-                // 添加新留言
-                comments.unshift(comment);
-                
-                // 保存到localStorage
-                localStorage.setItem('blogComments', JSON.stringify(comments));
-                
-                // 更新页面
-                displayComments();
-            }
-            
-            // 从localStorage加载留言
-            function loadComments() {
-                displayComments();
-            }
-            
-            // 显示留言
-            function displayComments() {
-                const comments = JSON.parse(localStorage.getItem('blogComments')) || [];
-                
-                if (comments.length === 0) {
-                    commentsList.innerHTML = '<p>暂无留言，成为第一个留言的人吧！</p>';
-                    return;
-                }
-                
-                commentsList.innerHTML = '';
-                
-                comments.forEach(comment => {
-                    const commentElement = document.createElement('div');
-                    commentElement.className = 'comment-item';
-                    commentElement.innerHTML = `
-                        <div class="comment-header">
-                            <div class="comment-author">${comment.name}</div>
-                            <div class="comment-date">${comment.date}</div>
-                        </div>
-                        <div class="comment-content">${comment.content}</div>
-                    `;
-                    commentsList.appendChild(commentElement);
+            // 导航链接跳转
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    // 这里可以添加页面跳转逻辑
+                    alert(`跳转到: ${targetId}`);
+                    // 实际使用时可以取消注释下面的代码
+                    // window.location.href = `/${targetId}.html`;
                 });
-            }
+            });
+
+            // 阅读更多按钮跳转
+            const readMoreButtons = document.querySelectorAll('.read-more');
+            readMoreButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    // 这里可以添加文章跳转逻辑
+                    alert(`跳转到文章: ${targetId}`);
+                    // 实际使用时可以取消注释下面的代码
+                    // window.location.href = `/posts/${targetId}.html`;
+                });
+            });
+
+            // 分类链接跳转
+            const categoryLinks = document.querySelectorAll('.categories a');
+            categoryLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    // 这里可以添加分类页面跳转逻辑
+                    alert(`跳转到分类: ${targetId}`);
+                    // 实际使用时可以取消注释下面的代码
+                    // window.location.href = `/categories/${targetId}.html`;
+                });
+            });
         });
     </script>
 </body>
