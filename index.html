@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Serein's Blog</title>
+    <title>SereinSerein's Blog</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Gitalk CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css">
+    <!-- Markdown解析库 -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -142,10 +142,46 @@
             padding-left: 1rem;
         }
 
-        .post p {
+        .post-content {
             color: #555;
             margin-bottom: 1.5rem;
             line-height: 1.8;
+        }
+
+        .post-content img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .post-content h1, .post-content h2, .post-content h3 {
+            margin-top: 1.5rem;
+            margin-bottom: 0.8rem;
+            color: var(--dark-text);
+        }
+
+        .post-content code {
+            background: rgba(106, 158, 255, 0.1);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .post-content pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        .post-content blockquote {
+            border-left: 4px solid var(--primary-green);
+            padding-left: 1rem;
+            margin: 1rem 0;
+            color: #666;
+            font-style: italic;
         }
 
         .post-meta {
@@ -179,7 +215,7 @@
             gap: 2rem;
         }
 
-        .about, .categories, .recent-comments {
+        .about, .categories {
             background: rgba(255, 255, 255, 0.9);
             border-radius: 12px;
             padding: 1.5rem;
@@ -235,206 +271,20 @@
             color: var(--primary-blue);
         }
 
-        .comment {
-            padding: 1rem 0;
-            border-bottom: 1px dashed #eee;
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: white;
+            font-size: 1.2rem;
         }
 
-        .comment:last-child {
-            border-bottom: none;
-        }
-
-        .comment-author {
-            font-weight: bold;
-            color: var(--primary-blue);
-        }
-
-        .comments-section {
+        .error {
             background: rgba(255, 255, 255, 0.9);
             border-radius: 12px;
             padding: 2rem;
             box-shadow: var(--shadow);
-            margin-top: 2rem;
-            grid-column: 1 / -1;
-        }
-
-        .comments-section h2 {
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            color: var(--dark-text);
-            border-left: 4px solid var(--primary-green);
-            padding-left: 1rem;
-        }
-
-        .gitalk-container {
-            margin-top: 2rem;
-        }
-
-        /* 管理页面样式 */
-        .admin-panel {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 1000;
-            overflow-y: auto;
-        }
-
-        .admin-content {
-            background: white;
-            margin: 2rem auto;
-            padding: 2rem;
-            border-radius: 12px;
-            max-width: 800px;
-            box-shadow: var(--shadow);
-        }
-
-        .admin-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid #eee;
-        }
-
-        .admin-tabs {
-            display: flex;
-            margin-bottom: 1.5rem;
-            border-bottom: 1px solid #eee;
-        }
-
-        .admin-tab {
-            padding: 0.8rem 1.5rem;
-            cursor: pointer;
-            border-bottom: 3px solid transparent;
-            transition: all 0.3s;
-        }
-
-        .admin-tab.active {
-            border-bottom: 3px solid var(--primary-blue);
-            color: var(--primary-blue);
-            font-weight: 500;
-        }
-
-        .admin-form {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .form-group {
-            margin-bottom: 1rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: #555;
-        }
-
-        .form-group input, .form-group textarea, .form-group select {
-            width: 100%;
-            padding: 0.8rem;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: border-color 0.3s, box-shadow 0.3s;
-        }
-
-        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
-            outline: none;
-            border-color: var(--primary-blue);
-            box-shadow: 0 0 0 3px rgba(106, 158, 255, 0.2);
-        }
-
-        .form-group textarea {
-            min-height: 200px;
-            resize: vertical;
-        }
-
-        .form-actions {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-
-        .btn {
-            padding: 0.8rem 1.5rem;
-            border: none;
-            border-radius: 30px;
-            font-size: 1rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .btn-primary {
-            background: linear-gradient(to right, var(--primary-blue), var(--primary-purple));
-            color: white;
-        }
-
-        .btn-success {
-            background: linear-gradient(to right, var(--primary-green), var(--secondary-green));
-            color: white;
-        }
-
-        .btn-danger {
-            background: linear-gradient(to right, #ff6b6b, #ff5252);
-            color: white;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-        }
-
-        .login-btn {
-            background: linear-gradient(to right, var(--primary-green), var(--secondary-green));
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: transform 0.3s, box-shadow 0.3s;
-            margin-left: 1rem;
-        }
-
-        .login-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(76, 217, 123, 0.4);
-        }
-
-        .articles-list {
-            margin-top: 1.5rem;
-        }
-
-        .article-item {
-            padding: 1rem;
-            border: 1px solid #eee;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .article-actions {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .login-form {
-            max-width: 400px;
-            margin: 2rem auto;
-            padding: 2rem;
-            background: white;
-            border-radius: 12px;
-            box-shadow: var(--shadow);
+            text-align: center;
+            color: #e74c3c;
         }
 
         footer {
@@ -480,46 +330,6 @@
             .nav-links li {
                 margin: 0 0.8rem;
             }
-            
-            .admin-content {
-                margin: 1rem;
-                padding: 1.5rem;
-            }
-            
-            .form-actions {
-                flex-direction: column;
-            }
-        }
-
-        /* Gitalk 样式调整 */
-        .gt-container .gt-header-textarea {
-            background: rgba(248, 249, 250, 0.7);
-            border: 1px solid #ddd;
-            border-radius: 8px;
-        }
-
-        .gt-container .gt-btn {
-            background: linear-gradient(to right, var(--primary-green), var(--secondary-green));
-            border: none;
-            border-radius: 30px;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .gt-container .gt-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(76, 217, 123, 0.4);
-        }
-
-        .gt-container .gt-btn-preview {
-            background: linear-gradient(to right, var(--primary-blue), var(--secondary-blue));
-        }
-
-        .gt-container .gt-user .gt-ico {
-            background: linear-gradient(45deg, var(--primary-purple), var(--secondary-purple));
-        }
-
-        .gt-container a {
-            color: var(--primary-blue);
         }
     </style>
 </head>
@@ -529,14 +339,13 @@
             <div class="header-content">
                 <div class="logo">
                     <h1>Serein</h1>
-                    <p>没有可怕的深度，就没有美丽的水面。</p>
+                    <p>没有可怕的深度，就没有美丽的水面.</p>
                 </div>
                 <ul class="nav-links">
                     <li><a href="#home">首页</a></li>
                     <li><a href="#articles">文章</a></li>
                     <li><a href="#about">关于</a></li>
                     <li><a href="#contact">联系</a></li>
-                    <li><a href="#" id="adminLoginBtn" class="login-btn">管理员登录</a></li>
                 </ul>
             </div>
         </div>
@@ -545,12 +354,14 @@
     <div class="container">
         <main>
             <div class="blog-posts" id="blogPosts">
-                <!-- 文章将通过JavaScript动态加载 -->
+                <div class="loading" id="loadingIndicator">
+                    <i class="fas fa-spinner fa-spin"></i> 正在从GitHub加载文章...
+                </div>
             </div>
 
             <div class="sidebar">
                 <div class="about">
-                    <h3>关于我</h3>
+                    <h3>About</h3>
                     <div class="about-content">
                         <div class="avatar">S</div>
                         <p>Hi,I'm Serein.</p>
@@ -560,340 +371,240 @@
                 <div class="categories">
                     <h3>文章分类</h3>
                     <ul>
-                        <li><a href="#tech">技术笔记 <span>(12)</span></a></li>
+                        <li><a href="#tech">技术笔记 <span>()</span></a></li>
                         <li><a href="#life">生活随笔 <span>(8)</span></a></li>
                         <li><a href="#reading">读书心得 <span>(5)</span></a></li>
-                        <li><a href="#travel">旅行见闻 <span>(3)</span></a></li>
+                        <li><a href="#writing">其他文章 <span>(2)</span></a></li>
                     </ul>
                 </div>
-
-                <div class="recent-comments">
-                    <h3>最新评论</h3>
-                    <div class="comment">
-                        <div class="comment-author">访客123</div>
-                        <p>这篇文章很有启发，谢谢分享！</p>
-                    </div>
-                    <div class="comment">
-                        <div class="comment-author">学习者</div>
-                        <p>期待更多关于这个主题的内容。</p>
-                    </div>
-                </div>
             </div>
-
-            <section class="comments-section">
-                <h2>留言区</h2>
-                <p>基于 GitHub Issues 的评论系统，您需要登录 GitHub 账号才能留言。</p>
-                <div id="gitalk-container" class="gitalk-container"></div>
-            </section>
         </main>
-    </div>
-
-    <!-- 管理员登录面板 -->
-    <div class="admin-panel" id="adminPanel">
-        <div class="admin-content">
-            <div class="admin-header">
-                <h2>博客管理后台</h2>
-                <button class="btn btn-danger" id="closeAdminBtn">关闭</button>
-            </div>
-            
-            <div class="admin-tabs">
-                <div class="admin-tab active" data-tab="articles">文章管理</div>
-                <div class="admin-tab" data-tab="new-article">新建文章</div>
-            </div>
-            
-            <!-- 文章管理 -->
-            <div class="admin-tab-content" id="articles-tab">
-                <h3>文章列表</h3>
-                <div class="articles-list" id="articlesList">
-                    <!-- 文章列表将通过JavaScript动态加载 -->
-                </div>
-            </div>
-            
-            <!-- 新建文章 -->
-            <div class="admin-tab-content" id="new-article-tab" style="display: none;">
-                <h3>新建文章</h3>
-                <form class="admin-form" id="articleForm">
-                    <div class="form-group">
-                        <label for="articleTitle">文章标题</label>
-                        <input type="text" id="articleTitle" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="articleCategory">文章分类</label>
-                        <select id="articleCategory" required>
-                            <option value="tech">技术笔记</option>
-                            <option value="life">生活随笔</option>
-                            <option value="reading">读书心得</option>
-                            <option value="travel">旅行见闻</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="articleContent">文章内容</label>
-                        <textarea id="articleContent" required></textarea>
-                    </div>
-                    <div class="form-actions">
-                        <button type="submit" class="btn btn-primary">发布文章</button>
-                        <button type="button" class="btn" id="previewBtn">预览</button>
-                    </div>
-                </form>
-            </div>
-        </div>
     </div>
 
     <footer>
         <div class="container">
-            <p>&copy; 2025 Serein｜保留所有权利.</p>
+            <p>&copy; 2025 Serein|保留所有权利.</p>
             <div class="social-links">
                 <a href="https://github.com/Serein12147" target="_blank"><i class="fab fa-github"></i></a>
                 <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
                 <a href="https://weibo.com" target="_blank"><i class="fab fa-weibo"></i></a>
-                <a href="https://bilibili.com" target="_blank"><i class="fab fa-bilibili"></i></a>
+                <a href="https://space.bilibili.com/3493271475062788" target="_blank"><i class="fab fa-bilibili"></i></a>
             </div>
         </div>
     </footer>
 
-    <!-- Gitalk JS -->
-    <script src="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js"></script>
-    <!-- MD5 for Gitalk -->
-    <script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.19.0/js/md5.min.js"></script>
     <script>
-        // 模拟文章数据 - 在实际应用中，这些数据应该从服务器获取
-        const articles = [
-            {
-                id: 1,
-                title: "深入理解JavaScript闭包",
-                content: "闭包是JavaScript中一个非常重要的概念，它允许函数访问并记住函数外部的变量，即使函数在其词法作用域之外执行...",
-                date: "2023-10-15",
-                category: "tech",
-                comments: 5
-            },
-            {
-                id: 2,
-                title: "我的编程学习之路",
-                content: "回顾我学习编程的历程，从最初的好奇到现在的热爱，这中间经历了无数的挑战和成长。在这篇文章中，我将分享我的学习经验和方法...",
-                date: "2023-10-10",
-                category: "life",
-                comments: 3
-            },
-            {
-                id: 3,
-                title: "《深入浅出Node.js》读书笔记",
-                content: "最近阅读了《深入浅出Node.js》这本书，对Node.js的内部机制有了更深入的理解。这本书详细介绍了Node.js的事件循环、异步I/O等核心概念...",
-                date: "2023-10-05",
-                category: "reading",
-                comments: 2
-            }
-        ];
+        // 配置GitHub仓库信息
+        const GITHUB_CONFIG = {
+            username: 'Serein12147', // 替换为您的GitHub用户名
+            repo: 'POSTS', // 替换为您的仓库名
+            folder: 'posts', // 存放文章的文件夹
+            branch: 'main' // 分支名，通常是main或master
+        };
 
-        // 配置Gitalk
-        const gitalk = new Gitalk({
-            // 需要从GitHub申请
-            clientID: 'Ov23liATxsNzKMtdYVbg',
-            clientSecret: '1f04e1270bedf2cb6e127448ce87a25105eebf74',
-            repo: 'blog-comments', // 用于存储评论的 GitHub 仓库
-            owner: 'Serein12147', // GitHub 用户名
-            admin:['Serein12147'], // 仓库管理员，可以初始化评论
-            id: md5(location.pathname), // 确保每个页面的id唯一
-            distractionFreeMode: false, // 专注模式
-            language: 'zh-CN', // 语言设置
-        });
+        // 文章数据缓存
+        let articles = [];
 
         // DOM加载完成后执行
         document.addEventListener('DOMContentLoaded', function() {
-            // 渲染Gitalk评论框
-            gitalk.render('gitalk-container');
-            
-            // 加载文章到页面
-            loadArticles();
-            
-            // 设置管理员登录按钮事件
-            document.getElementById('adminLoginBtn').addEventListener('click', function(e) {
-                e.preventDefault();
-                showAdminPanel();
-            });
-            
-            // 设置关闭管理员面板按钮事件
-            document.getElementById('closeAdminBtn').addEventListener('click', function() {
-                hideAdminPanel();
-            });
-            
-            // 设置标签切换
-            const tabs = document.querySelectorAll('.admin-tab');
-            tabs.forEach(tab => {
-                tab.addEventListener('click', function() {
-                    // 移除所有标签的active类
-                    tabs.forEach(t => t.classList.remove('active'));
-                    // 给当前标签添加active类
-                    this.classList.add('active');
-                    
-                    // 隐藏所有标签内容
-                    document.querySelectorAll('.admin-tab-content').forEach(content => {
-                        content.style.display = 'none';
-                    });
-                    
-                    // 显示当前标签内容
-                    const tabId = this.getAttribute('data-tab') + '-tab';
-                    document.getElementById(tabId).style.display = 'block';
-                });
-            });
-            
-            // 设置文章表单提交事件
-            document.getElementById('articleForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                saveArticle();
-            });
-            
-            // 设置预览按钮事件
-            document.getElementById('previewBtn').addEventListener('click', function() {
-                previewArticle();
-            });
-            
-            // 加载文章到管理面板
-            loadArticlesToAdmin();
+            // 从GitHub加载文章
+            loadArticlesFromGitHub();
         });
 
-        // 加载文章到博客页面
-        function loadArticles() {
-            const blogPosts = document.getElementById('blogPosts');
-            blogPosts.innerHTML = '';
+        // 从GitHub加载文章
+        async function loadArticlesFromGitHub() {
+            try {
+                // 获取文章列表
+                const articlesList = await fetchGitHubFiles();
+                
+                if (articlesList.length === 0) {
+                    document.getElementById('blogPosts').innerHTML = `
+                        <div class="error">
+                            <h3>未找到文章</h3>
+                            <p>请在GitHub仓库的"${GITHUB_CONFIG.folder}"文件夹中添加Markdown文件。</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                // 加载每篇文章的内容
+                await loadArticlesContent(articlesList);
+                
+                // 按日期排序文章（最新的在前）
+                articles.sort((a, b) => new Date(b.date) - new Date(a.date));
+                
+                // 渲染文章
+                renderArticles();
+                
+            } catch (error) {
+                console.error('加载文章时出错:', error);
+                document.getElementById('blogPosts').innerHTML = `
+                    <div class="error">
+                        <h3>加载文章失败</h3>
+                        <p>请检查控制台获取详细信息，并确保GitHub配置正确。</p>
+                        <p>错误信息: ${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        // 从GitHub获取文件列表
+        async function fetchGitHubFiles() {
+            const apiUrl = `https://api.github.com/repos/${GITHUB_CONFIG.username}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.folder}?ref=${GITHUB_CONFIG.branch}`;
             
+            const response = await fetch(apiUrl);
+            
+            if (!response.ok) {
+                throw new Error(`GitHub API请求失败: ${response.status} ${response.statusText}`);
+            }
+            
+            const files = await response.json();
+            
+            // 过滤出Markdown文件
+            return files.filter(file => 
+                file.name.endsWith('.md') || file.name.endsWith('.markdown')
+            );
+        }
+
+        // 加载文章内容
+        async function loadArticlesContent(articlesList) {
+            articles = [];
+            
+            for (const file of articlesList) {
+                try {
+                    // 获取文件内容
+                    const response = await fetch(file.download_url);
+                    
+                    if (!response.ok) {
+                        console.warn(`无法加载文章: ${file.name}`);
+                        continue;
+                    }
+                    
+                    const content = await response.text();
+                    
+                    // 解析文章元数据
+                    const metadata = parseArticleMetadata(content, file);
+                    
+                    // 将Markdown转换为HTML
+                    const htmlContent = marked.parse(metadata.content);
+                    
+                    // 添加到文章列表
+                    articles.push({
+                        id: file.sha,
+                        title: metadata.title,
+                        content: htmlContent,
+                        excerpt: metadata.excerpt,
+                        date: metadata.date,
+                        category: metadata.category,
+                        file: file.name
+                    });
+                    
+                } catch (error) {
+                    console.error(`加载文章 ${file.name} 时出错:`, error);
+                }
+            }
+        }
+
+        // 解析文章元数据
+        function parseArticleMetadata(content, file) {
+            // 默认元数据
+            let metadata = {
+                title: file.name.replace(/\.md$/, ''),
+                content: content,
+                excerpt: content.substring(0, 200) + '...',
+                date: file.created_at || new Date().toISOString().split('T')[0],
+                category: '未分类'
+            };
+            
+            // 尝试从YAML Front Matter解析元数据
+            const frontMatterMatch = content.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+            
+            if (frontMatterMatch) {
+                const frontMatter = frontMatterMatch[1];
+                metadata.content = frontMatterMatch[2];
+                
+                // 解析标题
+                const titleMatch = frontMatter.match(/title:\s*(.*)/);
+                if (titleMatch) metadata.title = titleMatch[1].trim();
+                
+                // 解析日期
+                const dateMatch = frontMatter.match(/date:\s*(.*)/);
+                if (dateMatch) metadata.date = dateMatch[1].trim();
+                
+                // 解析分类
+                const categoryMatch = frontMatter.match(/category:\s*(.*)/);
+                if (categoryMatch) metadata.category = categoryMatch[1].trim();
+                
+                // 解析摘要
+                const excerptMatch = frontMatter.match(/excerpt:\s*(.*)/);
+                if (excerptMatch) {
+                    metadata.excerpt = excerptMatch[1].trim();
+                } else {
+                    metadata.excerpt = metadata.content.substring(0, 200) + '...';
+                }
+            }
+            
+            return metadata;
+        }
+
+        // 渲染文章
+        function renderArticles() {
+            const blogPosts = document.getElementById('blogPosts');
+            
+            // 移除加载指示器
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            if (loadingIndicator) {
+                loadingIndicator.remove();
+            }
+            
+            // 如果没有文章，显示提示
+            if (articles.length === 0) {
+                blogPosts.innerHTML = `
+                    <div class="error">
+                        <h3>暂无文章</h3>
+                        <p>请检查GitHub仓库配置或稍后再试。</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // 渲染每篇文章
+            blogPosts.innerHTML = '';
             articles.forEach(article => {
                 const articleElement = document.createElement('article');
                 articleElement.className = 'post';
                 articleElement.innerHTML = `
                     <h2>${article.title}</h2>
-                    <p>${article.content}</p>
+                    <div class="post-content">${article.content}</div>
                     <div class="post-meta">
-                        <span><i class="far fa-calendar"></i> ${article.date}</span>
-                        <span><i class="far fa-comment"></i> ${article.comments} 条评论</span>
+                        <span><i class="far fa-calendar"></i> ${formatDate(article.date)}</span>
+                        <span><i class="far fa-folder"></i> ${article.category}</span>
                     </div>
-                    <a href="#post${article.id}" class="read-more">阅读更多</a>
+                    <a href="#post-${article.id}" class="read-more">阅读更多</a>
                 `;
                 blogPosts.appendChild(articleElement);
             });
         }
 
-        // 加载文章到管理面板
-        function loadArticlesToAdmin() {
-            const articlesList = document.getElementById('articlesList');
-            articlesList.innerHTML = '';
-            
-            articles.forEach(article => {
-                const articleItem = document.createElement('div');
-                articleItem.className = 'article-item';
-                articleItem.innerHTML = `
-                    <div>
-                        <h4>${article.title}</h4>
-                        <p>${article.date} | ${getCategoryName(article.category)}</p>
-                    </div>
-                    <div class="article-actions">
-                        <button class="btn btn-primary" onclick="editArticle(${article.id})">编辑</button>
-                        <button class="btn btn-danger" onclick="deleteArticle(${article.id})">删除</button>
-                    </div>
-                `;
-                articlesList.appendChild(articleItem);
+        // 格式化日期
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('zh-CN', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
             });
         }
 
-        // 显示管理员面板
-        function showAdminPanel() {
-            document.getElementById('adminPanel').style.display = 'block';
-        }
-
-        // 隐藏管理员面板
-        function hideAdminPanel() {
-            document.getElementById('adminPanel').style.display = 'none';
-        }
-
-        // 保存文章
-        function saveArticle() {
-            const title = document.getElementById('articleTitle').value;
-            const category = document.getElementById('articleCategory').value;
-            const content = document.getElementById('articleContent').value;
-            
-            if (!title || !content) {
-                alert('请填写标题和内容');
-                return;
-            }
-            
-            // 创建新文章对象
-            const newArticle = {
-                id: articles.length + 1,
-                title: title,
-                content: content,
-                date: new Date().toISOString().split('T')[0],
-                category: category,
-                comments: 0
-            };
-            
-            // 添加到文章数组
-            articles.push(newArticle);
-            
-            // 重新加载文章
-            loadArticles();
-            loadArticlesToAdmin();
-            
-            // 重置表单
-            document.getElementById('articleForm').reset();
-            
-            // 显示成功消息
-            alert('文章发布成功！');
-            
-            // 切换到文章管理标签
-            document.querySelector('.admin-tab[data-tab="articles"]').click();
-        }
-
-        // 预览文章
-        function previewArticle() {
-            const title = document.getElementById('articleTitle').value;
-            const content = document.getElementById('articleContent').value;
-            
-            if (!title || !content) {
-                alert('请填写标题和内容');
-                return;
-            }
-            
-            // 在实际应用中，这里应该打开一个新窗口或显示预览区域
-            alert(`预览:\n\n标题: ${title}\n\n内容: ${content.substring(0, 100)}...`);
-        }
-
-        // 编辑文章
-        function editArticle(id) {
-            const article = articles.find(a => a.id === id);
-            if (article) {
-                document.getElementById('articleTitle').value = article.title;
-                document.getElementById('articleCategory').value = article.category;
-                document.getElementById('articleContent').value = article.content;
-                
-                // 切换到新建文章标签
-                document.querySelector('.admin-tab[data-tab="new-article"]').click();
-                
-                // 在实际应用中，这里应该修改表单的提交行为以更新文章而不是创建新文章
-            }
-        }
-
-        // 删除文章
-        function deleteArticle(id) {
-            if (confirm('确定要删除这篇文章吗？')) {
-                const index = articles.findIndex(a => a.id === id);
-                if (index !== -1) {
-                    articles.splice(index, 1);
-                    loadArticles();
-                    loadArticlesToAdmin();
-                    alert('文章已删除');
-                }
-            }
-        }
-
-        // 获取分类名称
-        function getCategoryName(category) {
-            const categories = {
-                'tech': '技术笔记',
-                'life': '生活随笔',
-                'reading': '读书心得',
-                'travel': '旅行见闻'
-            };
-            return categories[category] || '未分类';
-        }
+        // 配置marked选项
+        marked.setOptions({
+            highlight: function(code, lang) {
+                // 在实际应用中，您可以集成highlight.js等语法高亮库
+                return code;
+            },
+            breaks: true,
+            gfm: true
+        });
     </script>
 </body>
 </html>
