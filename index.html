@@ -395,12 +395,7 @@
 
     <script>
         // 配置GitHub仓库信息
-        const GITHUB_CONFIG = {
-            username: 'Serein12147', // 替换为您的GitHub用户名
-            repo: 'POSTS', // 替换为您的仓库名
-            folder: 'posts', // 存放文章的文件夹
-            branch: 'main' // 分支名，通常是main或master
-        };
+
 
         // 文章数据缓存
         let articles = [];
@@ -450,7 +445,7 @@
 
         // 从GitHub获取文件列表
         async function fetchGitHubFiles() {
-            const apiUrl = `https://api.github.com/repos/${GITHUB_CONFIG.username}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.folder}?ref=${GITHUB_CONFIG.branch}`;
+            const apiUrl = `https://api.github.com/repos/Serein12147/POSTS/contents/posts`;
             
             const response = await fetch(apiUrl);
             
