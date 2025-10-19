@@ -364,17 +364,17 @@
                     <h3>About</h3>
                     <div class="about-content">
                         <div class="avatar">S</div>
-                        <p>Hi,I'm Serein.</p>
+                        <p>Hi,I'm Serein</p>
                     </div>
                 </div>
 
                 <div class="categories">
                     <h3>文章分类</h3>
                     <ul>
-                        <li><a href="#tech">技术笔记 <span>()</span></a></li>
+                        <li><a href="#tech">技术笔记 <span>(12)</span></a></li>
                         <li><a href="#life">生活随笔 <span>(8)</span></a></li>
                         <li><a href="#reading">读书心得 <span>(5)</span></a></li>
-                        <li><a href="#writing">其他文章 <span>(2)</span></a></li>
+                        <li><a href="#writing">其他文章 <span>(3)</span></a></li>
                     </ul>
                 </div>
             </div>
@@ -383,7 +383,7 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2025 Serein|保留所有权利.</p>
+            <p>&copy; 2023 Serein|保留所有权利.</p>
             <div class="social-links">
                 <a href="https://github.com/Serein12147" target="_blank"><i class="fab fa-github"></i></a>
                 <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
@@ -394,8 +394,13 @@
     </footer>
 
     <script>
-        // 配置GitHub仓库信息
-
+        // 配置GitHub仓库信息 - 根据您的仓库修改
+        const GITHUB_CONFIG = {
+            username: 'Serein12147',
+            repo: 'POSTS',
+            folder: 'posts',
+            branch: 'main'
+        };
 
         // 文章数据缓存
         let articles = [];
@@ -409,8 +414,11 @@
         // 从GitHub加载文章
         async function loadArticlesFromGitHub() {
             try {
+                console.log('开始从GitHub加载文章...');
+                
                 // 获取文章列表
                 const articlesList = await fetchGitHubFiles();
+                console.log('获取到的文章列表:', articlesList);
                 
                 if (articlesList.length === 0) {
                     document.getElementById('blogPosts').innerHTML = `
@@ -424,6 +432,7 @@
                 
                 // 加载每篇文章的内容
                 await loadArticlesContent(articlesList);
+                console.log('加载完成的文章:', articles);
                 
                 // 按日期排序文章（最新的在前）
                 articles.sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -445,7 +454,8 @@
 
         // 从GitHub获取文件列表
         async function fetchGitHubFiles() {
-            const apiUrl = `https://api.github.com/repos/Serein12147/POSTS/contents/posts`;
+            const apiUrl = `https://api.github.com/repos/${GITHUB_CONFIG.username}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.folder}?ref=${GITHUB_CONFIG.branch}`;
+            console.log('请求URL:', apiUrl);
             
             const response = await fetch(apiUrl);
             
@@ -467,15 +477,18 @@
             
             for (const file of articlesList) {
                 try {
+                    console.log(`正在加载文章: ${file.name}`);
+                    
                     // 获取文件内容
                     const response = await fetch(file.download_url);
                     
                     if (!response.ok) {
-                        console.warn(`无法加载文章: ${file.name}`);
+                        console.warn(`无法加载文章: ${file.name}, 状态码: ${response.status}`);
                         continue;
                     }
                     
                     const content = await response.text();
+                    console.log(`文章 ${file.name} 内容前100字符:`, content.substring(0, 100));
                     
                     // 解析文章元数据
                     const metadata = parseArticleMetadata(content, file);
@@ -512,7 +525,7 @@
             };
             
             // 尝试从YAML Front Matter解析元数据
-            const frontMatterMatch = content.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+            const frontMatterMatch = content.match(/^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/);
             
             if (frontMatterMatch) {
                 const frontMatter = frontMatterMatch[1];
@@ -539,6 +552,7 @@
                 }
             }
             
+            console.log(`文章 ${file.name} 解析后的元数据:`, metadata);
             return metadata;
         }
 
@@ -583,12 +597,16 @@
 
         // 格式化日期
         function formatDate(dateString) {
-            const date = new Date(dateString);
-            return date.toLocaleDateString('zh-CN', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            });
+            try {
+                const date = new Date(dateString);
+                return date.toLocaleDateString('zh-CN', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+            } catch (e) {
+                return dateString;
+            }
         }
 
         // 配置marked选项
